@@ -1,25 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const mainContent = document.querySelector('main');
-    const inputs = document.querySelectorAll('input');
-    const loginButton = document.querySelector('button[type="submit"]');
+    const likeButtons = document.querySelectorAll('.like-button');
 
-    // Fade in the main content on load
-    setTimeout(() => {
-        mainContent.style.opacity = '1';
-    }, 100);
-
-    // Function to check if both inputs have values
-    function checkInputs() {
-        const username = inputs[0].value.trim();
-        const password = inputs[1].value.trim();
-        loginButton.disabled = !(username && password);
-    }
-
-    // Add event listeners to inputs
-    inputs.forEach(input => {
-        input.addEventListener('keyup', checkInputs);
+    likeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const heartIcon = button.querySelector('.fa-heart');
+            // Toggle between 'far' (regular) and 'fas' (solid) and add our custom color class
+            heartIcon.classList.toggle('far'); // regular
+            heartIcon.classList.toggle('fas'); // solid
+            heartIcon.classList.toggle('liked'); // custom class for color
+        });
     });
-
-    // Initial check
-    checkInputs();
 });
