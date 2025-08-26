@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Post - Instagram</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body class="bg-gray-50">
+
+    <div class="container mx-auto max-w-lg p-4 min-h-screen flex flex-col justify-center items-center">
+        <div class="w-full bg-white border rounded-lg p-6">
+            <h1 class="text-center text-xl font-semibold mb-6">Create New Post</h1>
+            <form id="upload-form">
+                <div class="mb-4">
+                    <label for="file-upload" class="cursor-pointer bg-gray-100 border border-dashed border-gray-400 rounded-lg flex flex-col items-center justify-center h-48">
+                        <i class="fas fa-cloud-upload-alt text-4xl text-gray-400"></i>
+                        <span class="mt-2 text-sm text-gray-600">Select a photo</span>
+                    </label>
+                    <input id="file-upload" type="file" class="hidden" accept="image/*">
+                </div>
+                <div id="image-preview-container" class="hidden mb-4">
+                     <img id="image-preview" src="#" alt="Image preview" class="max-h-64 mx-auto rounded-lg"/>
+                </div>
+                <div class="mb-4">
+                    <textarea id="caption" placeholder="Write a caption..." class="w-full border rounded-lg p-2 text-sm focus:outline-none focus:ring-1 focus:ring-gray-400" rows="3"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-blue-500 text-white font-semibold py-2 rounded-lg hover:bg-blue-600 transition-colors">Share</button>
+                <div id="upload-status" class="text-center text-sm mt-4"></div>
+            </form>
+             <a href="/" class="text-center block text-sm text-gray-500 mt-4 hover:text-black">Back to Feed</a>
+        </div>
+    </div>
+
+    <script type="module" src="js/upload.js"></script>
+</body>
+</html>
