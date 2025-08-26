@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Instagram</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body class="bg-gray-50">
+
+    <!-- Top Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-white border-b border-gray-300 z-10">
+        <div class="container mx-auto flex justify-between items-center p-3">
+            <a href="/" class="text-black"><i class="fas fa-arrow-left"></i></a>
+            <h1 id="profile-username-header" class="font-semibold"></h1>
+            <div></div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto max-w-4xl pt-16 pb-20">
+        <!-- Profile Header -->
+        <div class="p-4">
+            <div class="flex items-center space-x-4">
+                <div class="w-20 h-20 md:w-36 md:h-36 bg-gray-200 rounded-full"></div>
+                <div class="flex-1">
+                    <h2 id="profile-username" class="text-2xl font-light"></h2>
+                    <div class="flex space-x-8 mt-4 text-sm md:text-base">
+                        <div><span id="post-count" class="font-semibold">0</span> posts</div>
+                        <div><span class="font-semibold">0</span> followers</div>
+                        <div><span class="font-semibold">0</span> following</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Post Grid -->
+        <div id="post-grid" class="grid grid-cols-3 gap-1 p-1 mt-4">
+            <!-- User's posts will be injected here -->
+        </div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300 z-10">
+        <div class="container mx-auto flex justify-around items-center p-3">
+            <a href="/" class="text-2xl text-black"><i class="fas fa-home"></i></a>
+            <a href="/upload.html" class="text-2xl text-black"><i class="far fa-plus-square"></i></a>
+            <a href="/profile.html" class="text-2xl text-black"><i class="far fa-user-circle"></i></a>
+        </div>
+    </nav>
+
+    <script type="module" src="js/profile.js"></script>
+</body>
+</html>
