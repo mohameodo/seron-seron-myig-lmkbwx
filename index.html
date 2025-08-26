@@ -7,137 +7,41 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/main.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
+<body class="bg-gray-50">
 
-    <div id="app-container" class="max-w-md mx-auto bg-white border-x border-gray-200">
-
-        <!-- Top Navigation -->
-        <header class="fixed top-0 left-0 right-0 z-10 bg-white border-b border-gray-200 max-w-md mx-auto">
-            <div class="flex justify-between items-center px-4 py-3">
-                <h1 class="text-2xl font-serif tracking-wider">Instagram</h1>
-                <div class="flex items-center space-x-5 text-2xl">
-                    <a href="#" class="hover:text-gray-600"><i class="far fa-plus-square"></i></a>
-                    <a href="#" class="hover:text-gray-600"><i class="far fa-heart"></i></a>
-                    <a href="#" class="hover:text-gray-600"><i class="fa-regular fa-paper-plane"></i></a>
-                </div>
+    <!-- Top Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-white border-b border-gray-300 z-10">
+        <div class="container mx-auto flex justify-between items-center p-3">
+            <img src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png" alt="Instagram" class="h-7">
+            <div class="flex items-center space-x-4">
+                <a href="/" class="text-2xl text-black"><i class="fas fa-home"></i></a>
+                <a href="/upload.html" class="text-2xl text-black"><i class="far fa-plus-square"></i></a>
+                <a href="/profile.html" class="text-2xl text-black"><i class="far fa-user-circle"></i></a>
+                <button id="logout-btn" class="text-sm text-blue-500 font-semibold">Logout</button>
             </div>
-        </header>
+        </div>
+    </nav>
 
-        <!-- Main Content -->
-        <main class="pt-14 pb-16">
-            <!-- Stories -->
-            <section class="py-3 border-b border-gray-200">
-                <div class="flex space-x-4 overflow-x-auto px-4 pb-2 scrollbar-hide">
-                    <!-- Your Story -->
-                    <div class="flex-shrink-0 text-center">
-                        <div class="relative">
-                            <img class="w-16 h-16 rounded-full object-cover border-2 border-gray-300 p-0.5" src="https://i.pravatar.cc/150?u=my_story" alt="Your Story">
-                            <button class="absolute bottom-0 right-0 bg-blue-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs border-2 border-white">+</button>
-                        </div>
-                        <p class="text-xs mt-1">Your Story</p>
-                    </div>
-                    <!-- Friend Stories -->
-                    <div class="flex-shrink-0 text-center">
-                         <div class="story-gradient-ring p-0.5 rounded-full">
-                            <img class="w-16 h-16 rounded-full object-cover border-2 border-white" src="https://i.pravatar.cc/150?u=user1" alt="User Story">
-                        </div>
-                        <p class="text-xs mt-1">sarah_k</p>
-                    </div>
-                     <div class="flex-shrink-0 text-center">
-                         <div class="story-gradient-ring p-0.5 rounded-full">
-                            <img class="w-16 h-16 rounded-full object-cover border-2 border-white" src="https://i.pravatar.cc/150?u=user2" alt="User Story">
-                        </div>
-                        <p class="text-xs mt-1">john.doe</p>
-                    </div>
-                     <div class="flex-shrink-0 text-center">
-                         <div class="story-gradient-ring p-0.5 rounded-full">
-                            <img class="w-16 h-16 rounded-full object-cover border-2 border-white" src="https://i.pravatar.cc/150?u=user3" alt="User Story">
-                        </div>
-                        <p class="text-xs mt-1">creative_co</p>
-                    </div>
-                     <div class="flex-shrink-0 text-center">
-                         <div class="story-gradient-ring p-0.5 rounded-full">
-                            <img class="w-16 h-16 rounded-full object-cover border-2 border-white" src="https://i.pravatar.cc/150?u=user4" alt="User Story">
-                        </div>
-                        <p class="text-xs mt-1">traveler</p>
-                    </div>
-                     <div class="flex-shrink-0 text-center">
-                         <div class="story-gradient-ring p-0.5 rounded-full">
-                            <img class="w-16 h-16 rounded-full object-cover border-2 border-white" src="https://i.pravatar.cc/150?u=user5" alt="User Story">
-                        </div>
-                        <p class="text-xs mt-1">foodie_life</p>
-                    </div>
-                </div>
-            </section>
+    <main class="container mx-auto max-w-lg pt-16 pb-20">
+        <!-- Feed Container -->
+        <div id="feed-container" class="space-y-4">
+            <!-- Posts will be injected here by JavaScript -->
+            <div class="text-center p-10 text-gray-500">Loading posts...</div>
+        </div>
+    </main>
 
-            <!-- Feed -->
-            <section id="feed">
-                <!-- Post 1 -->
-                <article class="bg-white">
-                    <div class="flex items-center p-3">
-                        <img class="w-8 h-8 rounded-full object-cover" src="https://i.pravatar.cc/150?u=user2" alt="User Profile">
-                        <p class="ml-3 font-semibold text-sm">john.doe</p>
-                        <i class="fas fa-ellipsis-h text-gray-500 ml-auto"></i>
-                    </div>
-                    <img src="https://picsum.photos/seed/1/600/600" alt="Post Image" class="w-full">
-                    <div class="p-3">
-                        <div class="flex items-center space-x-4 text-2xl">
-                            <button class="like-button"><i class="far fa-heart"></i></button>
-                            <i class="far fa-comment"></i>
-                            <i class="far fa-paper-plane"></i>
-                            <i class="far fa-bookmark ml-auto"></i>
-                        </div>
-                        <p class="text-sm font-semibold mt-3">1,024 likes</p>
-                        <p class="text-sm mt-1"><span class="font-semibold">john.doe</span> Exploring the city vibes today! 🏙️ #cityscape #adventure</p>
-                        <p class="text-xs text-gray-500 mt-2">View all 42 comments</p>
-                        <p class="text-xs text-gray-400 mt-1 uppercase">1 hour ago</p>
-                    </div>
-                </article>
-                
-                <!-- Post 2 -->
-                <article class="bg-white mt-4">
-                    <div class="flex items-center p-3">
-                        <img class="w-8 h-8 rounded-full object-cover" src="https://i.pravatar.cc/150?u=user4" alt="User Profile">
-                        <p class="ml-3 font-semibold text-sm">traveler</p>
-                        <i class="fas fa-ellipsis-h text-gray-500 ml-auto"></i>
-                    </div>
-                    <img src="https://picsum.photos/seed/2/600/700" alt="Post Image" class="w-full">
-                    <div class="p-3">
-                        <div class="flex items-center space-x-4 text-2xl">
-                            <button class="like-button"><i class="far fa-heart"></i></button>
-                            <i class="far fa-comment"></i>
-                            <i class="far fa-paper-plane"></i>
-                            <i class="far fa-bookmark ml-auto"></i>
-                        </div>
-                        <p class="text-sm font-semibold mt-3">5,831 likes</p>
-                        <p class="text-sm mt-1"><span class="font-semibold">traveler</span> Found paradise. I'm never leaving. 🌴☀️</p>
-                        <p class="text-xs text-gray-500 mt-2">View all 199 comments</p>
-                        <p class="text-xs text-gray-400 mt-1 uppercase">3 hours ago</p>
-                    </div>
-                </article>
-            </section>
-        </main>
+    <!-- Bottom Navigation -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300 z-10 md:hidden">
+        <div class="container mx-auto flex justify-around items-center p-3">
+            <a href="/" class="text-2xl text-black"><i class="fas fa-home"></i></a>
+            <a href="#" class="text-2xl text-black"><i class="fas fa-search"></i></a>
+            <a href="/upload.html" class="text-2xl text-black"><i class="far fa-plus-square"></i></a>
+            <a href="#" class="text-2xl text-black"><i class="far fa-heart"></i></a>
+            <a href="/profile.html" class="text-2xl text-black"><i class="far fa-user-circle"></i></a>
+        </div>
+    </nav>
 
-        <!-- Bottom Navigation -->
-        <footer class="fixed bottom-0 left-0 right-0 z-10 bg-white border-t border-gray-200 max-w-md mx-auto">
-            <nav class="flex justify-around items-center h-14 text-2xl text-gray-700">
-                <a href="#" class="text-black"><i class="fas fa-home"></i></a>
-                <a href="#"><i class="fas fa-search"></i></a>
-                <a href="#"><i class="far fa-play-circle"></i></a>
-                <a href="#"><i class="fas fa-shopping-bag"></i></a>
-                <a href="#"><img class="w-7 h-7 rounded-full object-cover" src="https://i.pravatar.cc/150?u=my_story" alt="My Profile"></a>
-            </nav>
-        </footer>
-    </div>
-
-    <a href="https://seron.dev" target="_blank" class="fixed bottom-4 right-4 bg-gray-800 text-white text-xs font-bold py-1.5 px-3 rounded-full shadow-lg hover:bg-gray-700 transition-colors z-20">
-        Made by Seron
-    </a>
-
-    <script src="js/main.js"></script>
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>
