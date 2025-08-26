@@ -1,73 +1,97 @@
 import { auth, db } from './firebase.js';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-import { setDoc, doc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut
+} from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
+import { doc, setDoc } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js';
 
+// --- AUTH STATE OBSERVER ---
 document.addEventListener('DOMContentLoaded', () => {
-    const loginForm = document.getElementById('login-form');
-    const signupForm = document.getElementById('signup-form');
-    const loginError = document.getElementById('login-error');
-    const signupError = document.getElementById('signup-error');
-    const showSignupBtn = document.getElementById('show-signup');
-    const showLoginBtn = document.getElementById('show-login');
-    const loginBox = document.querySelector('.w-full.max-w-sm > div:first-of-type').parentElement;
-    const signupContainer = document.getElementById('signup-container');
-
-    // Redirect if user is already logged in
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, user => {
+        const isAuthPage = window.location.pathname === '/' || window.location.pathname === '/index.html';
         if (user) {
-            window.location.href = '/index.html';
+            // User is signed in.
+            if (isAuthPage) {
+                window.location.href = '/feed.html';
+            }
+        } else {
+            // User is signed out.
+            if (!isAuthPage) {
+                window.location.href = '/index.html';
+            }
         }
     });
+});
 
-    showSignupBtn.addEventListener('click', () => {
-        loginBox.classList.add('hidden');
-        signupContainer.classList.remove('hidden');
+// --- DOM ELEMENTS (for index.html) ---
+const loginForm = document.getElementById('login-form');
+const signupForm = document.getElementById('signup-form');
+const loginContainer = document.getElementById('login-container');
+const signupContainer = document.getElementById('signup-container');
+const toggleLink = document.getElementById('toggle-link');
+const toggleText = document.getElementById('toggle-text');
+const loginError = document.getElementById('login-error');
+const signupError = document.getElementById('signup-error');
+
+// --- EVENT LISTENERS (for index.html) ---
+if (loginForm) {
+    // Toggle between Login and Signup forms
+    toggleLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        loginContainer.classList.toggle('hidden');
+        signupContainer.classList.toggle('hidden');
+        if (signupContainer.classList.contains('hidden')) {
+            toggleText.innerHTML = `Don't have an account? <a href="#" id="toggle-link" class="text-blue-500 font-semibold">Sign up</a>`;
+        } else {
+            toggleText.innerHTML = `Have an account? <a href="#" id="toggle-link" class="text-blue-500 font-semibold">Log in</a>`;
+        }
+        // Re-add event listener to the new link
+        document.getElementById('toggle-link').addEventListener('click', arguments.callee);
     });
 
-    showLoginBtn.addEventListener('click', () => {
-        signupContainer.classList.add('hidden');
-        loginBox.classList.remove('hidden');
-    });
-
-    // Login logic
+    // Login
     loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const email = document.getElementById('login-email').value;
         const password = document.getElementById('login-password').value;
-
         signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                window.location.href = '/index.html';
+            .then(userCredential => {
+                console.log('User logged in:', userCredential.user);
+                loginError.textContent = '';
             })
-            .catch((error) => {
+            .catch(error => {
                 loginError.textContent = error.message;
             });
     });
 
-    // Signup logic
-    signupForm.addEventListener('submit', (e) => {
+    // Signup
+    signupForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const email = document.getElementById('signup-email').value;
-        const password = document.getElementById('signup-password').value;
         const username = document.getElementById('signup-username').value;
+        const password = document.getElementById('signup-password').value;
 
-        if (!username) {
-            signupError.textContent = 'Please enter a username.';
-            return;
-        }
-
-        createUserWithEmailAndPassword(auth, email, password)
-            .then(async (userCredential) => {
-                const user = userCredential.user;
-                // Create a user document in Firestore
-                await setDoc(doc(db, 'users', user.uid), {
-                    username: username,
-                    email: email
-                });
-                window.location.href = '/index.html';
-            })
-            .catch((error) => {
-                signupError.textContent = error.message;
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            // Store additional user info in Firestore
+            await setDoc(doc(db, 'users', userCredential.user.uid), {
+                username: username,
+                email: email
             });
+            console.log('User signed up:', userCredential.user);
+            signupError.textContent = '';
+        } catch (error) {
+            signupError.textContent = error.message;
+        }
     });
-});
+}
+
+// --- LOGOUT FUNCTIONALITY (for other pages) ---
+const logoutBtn = document.getElementById('logout-btn') || document.getElementById('logout-btn-profile');
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+        signOut(auth).catch(error => console.error('Sign out error', error));
+    });
+}
