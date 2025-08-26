@@ -1,74 +1,89 @@
-import { auth, db, storage } from './firebase.js';
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
-import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-storage.js";
+import { db, storage, auth } from './firebase.js';
+import { ref, uploadBytesResumable, getDownloadURL } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-storage.js';
+import { collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js';
+import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    const uploadForm = document.getElementById('upload-form');
-    const fileInput = document.getElementById('file-upload');
-    const captionInput = document.getElementById('caption');
+    const fileUpload = document.getElementById('file-upload');
     const imagePreviewContainer = document.getElementById('image-preview-container');
     const imagePreview = document.getElementById('image-preview');
+    const captionInput = document.getElementById('caption-input');
+    const postBtn = document.getElementById('post-btn');
+    const progressContainer = document.getElementById('progress-container');
+    const progressBar = document.getElementById('progress-bar');
     const uploadStatus = document.getElementById('upload-status');
 
-    let currentUser = null;
     let selectedFile = null;
+    let currentUser = null;
 
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, user => {
         if (user) {
             currentUser = user;
         } else {
-            window.location.href = '/login.html';
+            currentUser = null;
+            window.location.href = '/index.html'; // Redirect if not logged in
         }
     });
 
-    fileInput.addEventListener('change', (e) => {
-        selectedFile = e.target.files[0];
-        if (selectedFile) {
+    fileUpload.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            selectedFile = file;
             const reader = new FileReader();
-            reader.onload = (event) => {
-                imagePreview.src = event.target.result;
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result;
                 imagePreviewContainer.classList.remove('hidden');
+                captionInput.classList.remove('hidden');
+                postBtn.classList.remove('hidden');
             };
-            reader.readAsDataURL(selectedFile);
+            reader.readAsDataURL(file);
         }
     });
 
-    uploadForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
+    postBtn.addEventListener('click', () => {
         if (!selectedFile || !currentUser) {
-            uploadStatus.textContent = 'Please select a file to upload.';
-            uploadStatus.classList.add('text-red-500');
+            uploadStatus.textContent = 'Please select a file and be logged in.';
             return;
         }
 
+        postBtn.disabled = true;
         uploadStatus.textContent = 'Uploading...';
-        uploadStatus.classList.remove('text-red-500', 'text-green-500');
+        progressContainer.classList.remove('hidden');
 
-        try {
-            // 1. Upload image to Firebase Storage
-            const storageRef = ref(storage, `posts/${currentUser.uid}/${Date.now()}_${selectedFile.name}`);
-            const snapshot = await uploadBytes(storageRef, selectedFile);
-            const downloadURL = await getDownloadURL(snapshot.ref);
+        const storageRef = ref(storage, `posts/${currentUser.uid}/${Date.now()}_${selectedFile.name}`);
+        const uploadTask = uploadBytesResumable(storageRef, selectedFile);
 
-            // 2. Add post data to Firestore
-            await addDoc(collection(db, 'posts'), {
-                userId: currentUser.uid,
-                caption: captionInput.value,
-                imageUrl: downloadURL,
-                likes: [],
-                timestamp: serverTimestamp()
-            });
-
-            uploadStatus.textContent = 'Post shared successfully!';
-            uploadStatus.classList.add('text-green-500');
-            setTimeout(() => { window.location.href = '/index.html' }, 1500);
-
-        } catch (error) {
-            console.error('Error uploading post:', error);
-            uploadStatus.textContent = 'Failed to share post. Please try again.';
-            uploadStatus.classList.add('text-red-500');
-        }
+        uploadTask.on('state_changed',
+            (snapshot) => {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                progressBar.style.width = progress + '%';
+            },
+            (error) => {
+                console.error('Upload failed:', error);
+                uploadStatus.textContent = 'Upload failed! Please try again.';
+                postBtn.disabled = false;
+            },
+            () => {
+                getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+                    try {
+                        await addDoc(collection(db, 'posts'), {
+                            userId: currentUser.uid,
+                            caption: captionInput.value,
+                            imageUrl: downloadURL,
+                            likes: [],
+                            timestamp: serverTimestamp()
+                        });
+                        uploadStatus.textContent = 'Post created successfully!';
+                        setTimeout(() => {
+                            window.location.href = '/feed.html';
+                        }, 1500);
+                    } catch (error) {
+                        console.error('Error adding document: ', error);
+                        uploadStatus.textContent = 'Failed to create post.';
+                        postBtn.disabled = false;
+                    }
+                });
+            }
+        );
     });
 });
