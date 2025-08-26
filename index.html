@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <main class="w-full min-h-screen flex flex-col items-center justify-center font-sans p-4 opacity-0 transition-opacity duration-1000">
+        <div class="container mx-auto flex flex-wrap items-center justify-center">
+
+            <!-- Image Section -->
+            <div class="hidden md:block md:w-1/2 p-10">
+                <img src="https://instagram.com/images/assets_DO_NOT_HARDCODE/lox_brand/landing-2x.png" alt="Instagram App Preview" class="max-w-md mx-auto">
+            </div>
+
+            <!-- Form Section -->
+            <div class="w-full md:w-auto flex flex-col items-center">
+                <div class="bg-white border border-gray-300 rounded-lg p-10 w-full max-w-sm">
+                    <div class="text-center mb-8">
+                        <h1 class="instagram-logo text-5xl">Instagram</h1>
+                    </div>
+                    <form class="space-y-4">
+                        <input type="text" placeholder="Phone number, username, or email" class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                        <input type="password" placeholder="Password" class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                        <button type="submit" class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition disabled:opacity-50">Log In</button>
+                    </form>
+                    <div class="flex items-center my-6">
+                        <div class="flex-grow border-t border-gray-300"></div>
+                        <span class="px-4 text-gray-500 font-semibold text-sm">OR</span>
+                        <div class="flex-grow border-t border-gray-300"></div>
+                    </div>
+                    <button class="w-full flex items-center justify-center text-blue-900 font-semibold py-2">
+                        <i class="fab fa-facebook-square mr-2 text-xl"></i>
+                        <span>Log in with Facebook</span>
+                    </button>
+                    <a href="#" class="block text-center text-xs text-blue-900 mt-4">Forgot password?</a>
+                </div>
+
+                <div class="bg-white border border-gray-300 rounded-lg p-6 w-full max-w-sm mt-4 text-center">
+                    <p class="text-sm">Don't have an account? <a href="#" class="text-blue-500 font-bold">Sign up</a></p>
+                </div>
+
+                <div class="text-center mt-6">
+                    <p class="text-sm">Get the app.</p>
+                    <div class="flex justify-center space-x-4 mt-4">
+                        <a href="#"><img src="https://static.cdninstagram.com/rsrc.php/v3/yz/r/c5Rp7Ym-Klz.png" alt="Get it on Google Play" class="h-10"></a>
+                        <a href="#"><img src="https://static.cdninstagram.com/rsrc.php/v3/yu/r/EHY6QnZYdNX.png" alt="Get it from Microsoft" class="h-10"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Links -->
+        <footer class="w-full max-w-5xl mx-auto text-center text-xs text-gray-500 mt-12 p-4">
+            <div class="flex flex-wrap justify-center gap-x-4 gap-y-2 mb-4">
+                <a href="https://about.meta.com/" class="hover:underline">Meta</a>
+                <a href="https://about.instagram.com/" class="hover:underline">About</a>
+                <a href="https://about.instagram.com/blog/" class="hover:underline">Blog</a>
+                <a href="https://about.instagram.com/about-us/careers" class="hover:underline">Jobs</a>
+                <a href="https://help.instagram.com/" class="hover:underline">Help</a>
+                <a href="https://developers.facebook.com/docs/instagram" class="hover:underline">API</a>
+                <a href="https://instagram.com/legal/privacy/" class="hover:underline">Privacy</a>
+                <a href="https://instagram.com/legal/terms/" class="hover:underline">Terms</a>
+                <a href="https://instagram.com/explore/locations/" class="hover:underline">Locations</a>
+                <a href="https://instagram.com/web/lite/" class="hover:underline">Instagram Lite</a>
+                <a href="https://www.threads.com/" class="hover:underline">Threads</a>
+                <a href="https://www.facebook.com/help/instagram/261704639352628" class="hover:underline">Contact Uploading & Non-Users</a>
+                <a href="https://instagram.com/accounts/meta_verified/?entrypoint=web_footer" class="hover:underline">Meta Verified</a>
+            </div>
+            <div class="flex justify-center items-center space-x-4">
+                <span>English</span>
+                <span>© 2025 Instagram from Meta</span>
+            </div>
+        </footer>
+    </main>
+
+    <a href="https://seron.dev" target="_blank" class="made-by-seron">
+        Made by Seron
+    </a>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
