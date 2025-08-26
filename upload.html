@@ -3,37 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Post - Instagram</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Upload | MyIG</title>
+    <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/main.css">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/images/icon-192x192.png">
 </head>
 <body class="bg-gray-50">
 
-    <div class="container mx-auto max-w-lg p-4 min-h-screen flex flex-col justify-center items-center">
-        <div class="w-full bg-white border rounded-lg p-6">
-            <h1 class="text-center text-xl font-semibold mb-6">Create New Post</h1>
-            <form id="upload-form">
-                <div class="mb-4">
-                    <label for="file-upload" class="cursor-pointer bg-gray-100 border border-dashed border-gray-400 rounded-lg flex flex-col items-center justify-center h-48">
-                        <i class="fas fa-cloud-upload-alt text-4xl text-gray-400"></i>
-                        <span class="mt-2 text-sm text-gray-600">Select a photo</span>
-                    </label>
-                    <input id="file-upload" type="file" class="hidden" accept="image/*">
-                </div>
-                <div id="image-preview-container" class="hidden mb-4">
-                     <img id="image-preview" src="#" alt="Image preview" class="max-h-64 mx-auto rounded-lg"/>
-                </div>
-                <div class="mb-4">
-                    <textarea id="caption" placeholder="Write a caption..." class="w-full border rounded-lg p-2 text-sm focus:outline-none focus:ring-1 focus:ring-gray-400" rows="3"></textarea>
-                </div>
-                <button type="submit" class="w-full bg-blue-500 text-white font-semibold py-2 rounded-lg hover:bg-blue-600 transition-colors">Share</button>
-                <div id="upload-status" class="text-center text-sm mt-4"></div>
-            </form>
-             <a href="/" class="text-center block text-sm text-gray-500 mt-4 hover:text-black">Back to Feed</a>
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-300 fixed top-0 left-0 right-0 z-10">
+        <div class="container mx-auto flex justify-between items-center p-3">
+            <h1 class="text-2xl font-serif">New Post</h1>
+            <button id="post-btn" class="text-blue-500 font-semibold text-lg hidden">Post</button>
         </div>
-    </div>
+    </header>
 
+    <!-- Main Content -->
+    <main class="container mx-auto max-w-lg pt-16 pb-20 p-4">
+        <div id="upload-container">
+            <div id="image-preview-container" class="mb-4 hidden">
+                <img id="image-preview" src="#" alt="Image preview" class="max-w-full rounded-lg mx-auto">
+            </div>
+
+            <label for="file-upload" class="w-full flex flex-col items-center px-4 py-6 bg-white text-blue-500 rounded-lg shadow-lg tracking-wide uppercase border border-blue-500 cursor-pointer hover:bg-blue-500 hover:text-white">
+                <i class="fas fa-cloud-upload-alt fa-3x"></i>
+                <span class="mt-2 text-base leading-normal">Select a photo</span>
+                <input type='file' id="file-upload" class="hidden" accept="image/*" />
+            </label>
+
+            <textarea id="caption-input" class="w-full p-2 mt-4 bg-gray-100 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 hidden" placeholder="Write a caption..."></textarea>
+
+            <div id="progress-container" class="w-full bg-gray-200 rounded-full h-2.5 mt-4 hidden">
+                <div id="progress-bar" class="bg-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
+            </div>
+            <p id="upload-status" class="text-center mt-2"></p>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bg-white border-t border-gray-300 fixed bottom-0 left-0 right-0 z-10">
+        <div class="container mx-auto flex justify-around items-center h-16">
+            <a href="/feed.html" class="text-gray-600 text-2xl"><i class="fas fa-home"></i></a>
+            <a href="/upload.html" class="text-blue-500 text-2xl"><i class="far fa-plus-square"></i></a>
+            <a href="/profile.html" class="text-gray-600 text-2xl"><i class="far fa-user"></i></a>
+        </div>
+    </nav>
+
+    <script src="js/main.js"></script>
     <script type="module" src="js/upload.js"></script>
 </body>
 </html>
