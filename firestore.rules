@@ -1,0 +1,19 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Users: Can create their own user doc, can only read/update their own doc.
+    match /users/{userId} {
+      allow create: if request.auth != null;
+      allow read, update: if request.auth.uid == userId;
+    }
+
+    // Posts: Logged-in users can create posts. Anyone can read. Only the author can update/delete.
+    match /posts/{postId} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null;
+      allow update, delete: if request.auth.uid == resource.data.userId;
+    }
+  }
+}
