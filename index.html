@@ -3,45 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instagram</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Login | MyIG</title>
+    <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/main.css">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/images/icon-192x192.png">
 </head>
 <body class="bg-gray-50">
 
-    <!-- Top Navigation -->
-    <nav class="fixed top-0 left-0 right-0 bg-white border-b border-gray-300 z-10">
-        <div class="container mx-auto flex justify-between items-center p-3">
-            <img src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png" alt="Instagram" class="h-7">
-            <div class="flex items-center space-x-4">
-                <a href="/" class="text-2xl text-black"><i class="fas fa-home"></i></a>
-                <a href="/upload.html" class="text-2xl text-black"><i class="far fa-plus-square"></i></a>
-                <a href="/profile.html" class="text-2xl text-black"><i class="far fa-user-circle"></i></a>
-                <button id="logout-btn" class="text-sm text-blue-500 font-semibold">Logout</button>
+    <div class="container mx-auto flex flex-col justify-center items-center min-h-screen p-4">
+        <div class="w-full max-w-sm">
+            <!-- Login Form -->
+            <div id="login-container" class="bg-white border border-gray-300 rounded-lg p-8 mb-4">
+                <h1 class="text-4xl font-serif text-center mb-6">MyIG</h1>
+                <form id="login-form">
+                    <input type="email" id="login-email" placeholder="Email" class="w-full p-2 mb-3 bg-gray-50 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" required>
+                    <input type="password" id="login-password" placeholder="Password" class="w-full p-2 mb-4 bg-gray-50 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" required>
+                    <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded font-semibold hover:bg-blue-600 transition-colors">Log In</button>
+                </form>
+                <p id="login-error" class="text-red-500 text-center mt-4 text-sm"></p>
+            </div>
+
+            <!-- Signup Form -->
+            <div id="signup-container" class="bg-white border border-gray-300 rounded-lg p-8 mb-4 hidden">
+                <h1 class="text-4xl font-serif text-center mb-6">MyIG</h1>
+                 <p class="text-gray-500 text-center font-semibold mb-4">Sign up to see photos and videos from your friends.</p>
+                <form id="signup-form">
+                    <input type="email" id="signup-email" placeholder="Email" class="w-full p-2 mb-3 bg-gray-50 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" required>
+                    <input type="text" id="signup-username" placeholder="Username" class="w-full p-2 mb-3 bg-gray-50 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" required>
+                    <input type="password" id="signup-password" placeholder="Password" class="w-full p-2 mb-4 bg-gray-50 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" required>
+                    <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded font-semibold hover:bg-blue-600 transition-colors">Sign Up</button>
+                </form>
+                <p id="signup-error" class="text-red-500 text-center mt-4 text-sm"></p>
+            </div>
+
+            <div class="bg-white border border-gray-300 rounded-lg p-4 text-center">
+                <p id="toggle-text">Don't have an account? <a href="#" id="toggle-link" class="text-blue-500 font-semibold">Sign up</a></p>
             </div>
         </div>
-    </nav>
+    </div>
 
-    <main class="container mx-auto max-w-lg pt-16 pb-20">
-        <!-- Feed Container -->
-        <div id="feed-container" class="space-y-4">
-            <!-- Posts will be injected here by JavaScript -->
-            <div class="text-center p-10 text-gray-500">Loading posts...</div>
-        </div>
-    </main>
-
-    <!-- Bottom Navigation -->
-    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300 z-10 md:hidden">
-        <div class="container mx-auto flex justify-around items-center p-3">
-            <a href="/" class="text-2xl text-black"><i class="fas fa-home"></i></a>
-            <a href="#" class="text-2xl text-black"><i class="fas fa-search"></i></a>
-            <a href="/upload.html" class="text-2xl text-black"><i class="far fa-plus-square"></i></a>
-            <a href="#" class="text-2xl text-black"><i class="far fa-heart"></i></a>
-            <a href="/profile.html" class="text-2xl text-black"><i class="far fa-user-circle"></i></a>
-        </div>
-    </nav>
-
-    <script type="module" src="js/main.js"></script>
+    <script src="js/main.js"></script>
+    <script type="module" src="js/auth.js"></script>
 </body>
 </html>
